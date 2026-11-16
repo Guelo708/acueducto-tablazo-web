@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import AdminModal from '../../components/AdminModal/AdminModal.jsx'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog.jsx'
 import { listarPredios } from '../../services/predioService.js'
+import { listarUsuarios } from '../../services/usuarioService.js'
 import {
   actualizarFacturasVencidas,
   eliminarFactura,
@@ -32,6 +33,7 @@ const money = (v) =>
 function FacturasPage() {
   const [items, setItems] = useState([])
   const [predios, setPredios] = useState([])
+  const [usuariosMap, setUsuariosMap] = useState({})
   const [filter, setFilter] = useState('')
   const [modal, setModal] = useState(null)
   const [detail, setDetail] = useState(null)
@@ -57,12 +59,20 @@ function FacturasPage() {
   async function cargarDatos(showLoading = false) {
     try {
       if (showLoading) setLoading(true)
-      const [facturas, listaPredios] = await Promise.all([
+      const [facturas, listaPredios, listaUsuarios] = await Promise.all([
         listarFacturas(),
         listarPredios(),
+        listarUsuarios().catch(() => []),
       ])
       setItems(Array.isArray(facturas) ? facturas : [])
       setPredios(Array.isArray(listaPredios) ? listaPredios : [])
+      const map = {}
+      if (Array.isArray(listaUsuarios)) {
+        listaUsuarios.forEach((u) => {
+          if (u.cedula) map[u.cedula] = u
+        })
+      }
+      setUsuariosMap(map)
     } catch (e) {
       setError(e.message)
     } finally {
@@ -75,13 +85,21 @@ function FacturasPage() {
 
     async function initialLoad() {
       try {
-        const [facturas, listaPredios] = await Promise.all([
+        const [facturas, listaPredios, listaUsuarios] = await Promise.all([
           listarFacturas(),
           listarPredios(),
+          listarUsuarios().catch(() => []),
         ])
         if (active) {
           setItems(Array.isArray(facturas) ? facturas : [])
           setPredios(Array.isArray(listaPredios) ? listaPredios : [])
+          const map = {}
+          if (Array.isArray(listaUsuarios)) {
+            listaUsuarios.forEach((u) => {
+              if (u.cedula) map[u.cedula] = u
+            })
+          }
+          setUsuariosMap(map)
         }
       } catch (e) {
         if (active) {
@@ -105,6 +123,27 @@ function FacturasPage() {
     () => items.filter((x) => !filter || x.estado === filter),
     [items, filter],
   )
+
+  function enviarCobroWhatsApp(factura) {
+    const suscriptor = usuariosMap[factura.cedulaPropietario]
+    const celularRaw = suscriptor?.celular ? suscriptor.celular.replace(/\D/g, '') : ''
+    const urlPortal = `${window.location.origin}/consulta`
+    const periodo = `${String(factura.mes).padStart(2, '0')}/${factura.anio}`
+
+    const texto = encodeURIComponent(
+      `Hola *${factura.nombrePropietario}*, cordial saludo de la Junta del *Acueducto Vereda El Tablazo*.\n\n` +
+        `Le recordamos que su factura del periodo *${periodo}* (Predio ${factura.codigoPredio}) por valor de *${money(factura.valorFactura)}* se encuentra en estado *${factura.estado}* (vencimiento: ${factura.fechaVencimiento}).\n\n` +
+        `Puede consultar su estado de cuenta detallado y los canales de pago aquí:\n${urlPortal}\n\n` +
+        `¡Muchas gracias por su puntualidad!`
+    )
+
+    if (celularRaw.length >= 10) {
+      const telefono = celularRaw.startsWith('57') ? celularRaw : `57${celularRaw}`
+      window.open(`https://wa.me/${telefono}?text=${texto}`, '_blank', 'noopener,noreferrer')
+    } else {
+      window.open(`https://wa.me/?text=${texto}`, '_blank', 'noopener,noreferrer')
+    }
+  }
 
   async function generate(e) {
     e.preventDefault()
@@ -302,6 +341,20 @@ function FacturasPage() {
                         <button type="button" onClick={() => setDetail(x)}>
                           Ver
                         </button>
+                        {x.estado !== 'PAGADA' && (
+                          <button
+                            type="button"
+                            onClick={() => enviarCobroWhatsApp(x)}
+                            style={{
+                              backgroundColor: '#16a34a',
+                              color: '#ffffff',
+                              borderColor: '#16a34a',
+                            }}
+                            title="Enviar recordatorio de cobro por WhatsApp"
+                          >
+                            WhatsApp
+                          </button>
+                        )}
                         <button
                           className="success"
                           type="button"
