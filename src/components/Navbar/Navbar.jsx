@@ -32,7 +32,7 @@ function Navbar() {
           </span>
 
           <span className="navbar__brand-text">
-            <strong>Aguas Paraíso</strong>
+            <strong>Acueducto El Tablazo</strong>
             <small>Gestión comunitaria</small>
           </span>
         </NavLink>

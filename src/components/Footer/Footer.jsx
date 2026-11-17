@@ -15,7 +15,7 @@ function Footer() {
           </span>
 
           <div className="footer__brand-text">
-            <strong>Aguas Paraíso</strong>
+            <strong>Acueducto El Tablazo</strong>
 
             <span>
               Gestión comunitaria del servicio de agua

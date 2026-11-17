@@ -20,7 +20,7 @@ function AuthLayout() {
             Acueducto comunitario
           </span>
 
-          <h1>Aguas Paraíso</h1>
+          <h1>Acueducto El Tablazo</h1>
 
           <p className="auth-layout__description">
             Tecnología y gestión al servicio de nuestra comunidad.

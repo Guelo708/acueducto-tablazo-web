@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import AdminModal from '../../components/AdminModal/AdminModal.jsx'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog.jsx'
+import ReciboModal from '../../components/ReciboModal/ReciboModal.jsx'
 import { listarFacturas } from '../../services/facturaService.js'
 import {
   eliminarPago,
@@ -33,6 +34,7 @@ function PagosPage() {
   const [search, setSearch] = useState('')
   const [modal, setModal] = useState(false)
   const [detail, setDetail] = useState(null)
+  const [reciboActivo, setReciboActivo] = useState(null)
   const [deleting, setDeleting] = useState(null)
   const [balance, setBalance] = useState(null)
   const [form, setForm] = useState({
@@ -124,7 +126,8 @@ function PagosPage() {
       })
       setItems((c) => [...c, saved])
       setModal(false)
-      setFeedback('Pago registrado correctamente.')
+      setFeedback('Pago registrado correctamente. Comprobante QR generado.')
+      setReciboActivo(saved)
       await cargarDatos(false)
     } catch (e) {
       setError(e.message)
@@ -163,7 +166,7 @@ function PagosPage() {
         <div>
           <span className="entity-hero__eyebrow">Gestión administrativa</span>
           <h1>Pagos</h1>
-          <p>Registra pagos y abonos, y consulta el saldo de cada factura.</p>
+          <p>Registra pagos y abonos, y emite recibos con código QR infalsificable.</p>
         </div>
         <button
           className="admin-button admin-button--primary"
@@ -236,6 +239,18 @@ function PagosPage() {
                     </td>
                     <td>
                       <div className="entity-actions">
+                        <button
+                          type="button"
+                          onClick={() => setReciboActivo(x)}
+                          style={{
+                            backgroundColor: '#0033A0',
+                            color: '#ffffff',
+                            borderColor: '#0033A0',
+                          }}
+                          title="Ver e imprimir recibo oficial con código QR"
+                        >
+                          Recibo QR
+                        </button>
                         <button
                           type="button"
                           onClick={() => showDetail(x)}
@@ -375,6 +390,7 @@ function PagosPage() {
               Fecha: detail.fechaPago,
               Método: detail.metodoPago?.replaceAll('_', ' '),
               Estado: detail.estadoFactura,
+              'Sello Digital': detail.codigoVerificacion || 'N/A',
               Observación: detail.observacion || 'Sin observación',
             }).map(([k, v]) => (
               <div key={k}>
@@ -384,6 +400,13 @@ function PagosPage() {
             ))}
           </dl>
         </AdminModal>
+      )}
+
+      {reciboActivo && (
+        <ReciboModal
+          pago={reciboActivo}
+          onClose={() => setReciboActivo(null)}
+        />
       )}
 
       {deleting && (

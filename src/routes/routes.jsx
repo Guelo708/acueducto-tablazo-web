@@ -4,6 +4,7 @@ import MainLayout from '../layouts/MainLayout/MainLayout.jsx'
 import DashboardPage from '../pages/DashboardPage/DashboardPage.jsx'
 import LoginPage from '../pages/LoginPage/LoginPage.jsx'
 import ConsultaSuscriptorPage from '../pages/ConsultaSuscriptorPage/ConsultaSuscriptorPage.jsx'
+import VerificarReciboPage from '../pages/VerificarReciboPage/VerificarReciboPage.jsx'
 import SuscriptoresPage from '../pages/SuscriptoresPage/SuscriptoresPage.jsx'
 import SuscriptorDetallePage from '../pages/SuscriptorDetallePage/SuscriptorDetallePage.jsx'
 import PrediosPage from '../pages/PrediosPage/PrediosPage.jsx'
@@ -19,6 +20,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Navigate to="/consulta" replace />} />
       <Route path="/consulta" element={<ConsultaSuscriptorPage />} />
+      <Route path="/verificar-recibo" element={<VerificarReciboPage />} />
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<LoginPage />} />
       </Route>

@@ -1,9 +1,13 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { consultarEstadoCuentaPublico } from '../../services/consultaPublicaService.js'
+import heroImg from '../../assets/hero.png'
+import img1 from '../../assets/imagen1.png'
+import img2 from '../../assets/Imagen2.png'
+import img3 from '../../assets/Imagen3.png'
 import './ConsultaSuscriptorPage.css'
 
-const TELEFONO_TESORERIA = '573000000000' // TODO: Reemplazar con el número oficial de WhatsApp de la Junta
+const TELEFONO_TESORERIA = '573105301220' // TODO: Reemplazar con el número oficial de WhatsApp de la Junta
 
 const money = (v) =>
   new Intl.NumberFormat('es-CO', {
@@ -46,25 +50,68 @@ function ConsultaSuscriptorPage() {
     : ''
 
   return (
-    <div className="portal-publico">
-      <div className="portal-publico__container">
-        <header className="portal-publico__topbar">
-          <div className="portal-publico__brand">
-            <span className="portal-publico__badge">Portal Comunitario</span>
-            <h1 className="portal-publico__title">Acueducto Vereda El Tablazo</h1>
+    <div className="portal-inst">
+      {/* Navbar Institucional */}
+      <nav className="portal-inst__navbar">
+        <div className="portal-inst__nav-inner">
+          <div className="portal-inst__brand">
+            <div className="portal-inst__logo-drop" aria-hidden="true">
+              AT
+            </div>
+            <div>
+              <span className="portal-inst__eyebrow">Gestión Comunitaria del Agua</span>
+              <h1 className="portal-inst__brand-title">Acueducto Vereda El Tablazo</h1>
+            </div>
           </div>
-          <Link to="/login" className="portal-publico__admin-link">
-            Acceso Junta
+          <Link to="/login" className="portal-inst__admin-btn">
+            Acceso Junta Administradora
           </Link>
-        </header>
+        </div>
+      </nav>
 
-        <section className="portal-card">
-          <h2 style={{ margin: '0 0 0.4rem', fontSize: '1.25rem' }}>
-            Consulta tu estado de cuenta
-          </h2>
-          <p className="portal-card__subtitle">
-            Ingresa tu <strong>número de cédula</strong> (o el nombre de tu finca/predio si es un registro antiguo) y los <strong>últimos 4 dígitos de tu celular</strong>.
-          </p>
+      {/* Hero Institucional con imagen del repositorio */}
+      <header
+        className="portal-inst__hero"
+        style={{ backgroundImage: `url(${heroImg})` }}
+      >
+        <div className="portal-inst__hero-overlay" />
+        <div className="portal-inst__hero-content">
+          <div>
+            <span className="portal-inst__hero-tag">Oficina Virtual del Suscriptor</span>
+            <h2 className="portal-inst__hero-title">
+              Consulta tu factura y mantén al día el agua de nuestra vereda
+            </h2>
+            <p className="portal-inst__hero-desc">
+              Verifica tu estado de cuenta en segundos sin necesidad de contraseñas, revisa tus pagos anteriores y reporta tus transferencias directamente a Tesorería.
+            </p>
+          </div>
+
+          <aside className="portal-inst__hero-highlights">
+            <div className="portal-inst__highlight-item">
+              <span className="portal-inst__highlight-dot" />
+              <span>Consulta rápida con tu cédula o nombre del predio registrado.</span>
+            </div>
+            <div className="portal-inst__highlight-item">
+              <span className="portal-inst__highlight-dot" />
+              <span>Transparencia total en saldos pendientes y abonos aplicados.</span>
+            </div>
+            <div className="portal-inst__highlight-item">
+              <span className="portal-inst__highlight-dot" />
+              <span>Atención directa con la Junta Administradora El Tablazo.</span>
+            </div>
+          </aside>
+        </div>
+      </header>
+
+      {/* Contenido Principal */}
+      <main className="portal-inst__main">
+        <section className="portal-card portal-card--search">
+          <div className="portal-card__header">
+            <h3 className="portal-card__title">Consulta de Estado de Cuenta</h3>
+            <p className="portal-card__subtitle">
+              Digita tu <strong>número de cédula</strong> (o el nombre de tu predio/finca si es un registro antiguo) junto con los <strong>últimos 4 dígitos de tu celular</strong>.
+            </p>
+          </div>
 
           <form className="portal-search-form" onSubmit={handleConsultar}>
             <label className="portal-field">
@@ -73,7 +120,7 @@ function ConsultaSuscriptorPage() {
                 type="text"
                 required
                 minLength={4}
-                placeholder="Ej: 71234567 o Finca El Mirador"
+                placeholder="Ej: 70141708 o Finca El Mirador"
                 value={identificador}
                 onChange={(e) => setIdentificador(e.target.value)}
               />
@@ -85,7 +132,7 @@ function ConsultaSuscriptorPage() {
                 type="text"
                 maxLength={4}
                 inputMode="numeric"
-                placeholder="Ej: 7890"
+                placeholder="Ej: 1220"
                 value={ultimos4Celular}
                 onChange={(e) =>
                   setUltimos4Celular(e.target.value.replace(/\D/g, '').slice(0, 4))
@@ -98,7 +145,7 @@ function ConsultaSuscriptorPage() {
               className="portal-btn-primary"
               disabled={loading}
             >
-              {loading ? 'Consultando...' : 'Consultar'}
+              {loading ? 'Consultando...' : 'Consultar Cartera'}
             </button>
           </form>
 
@@ -111,19 +158,19 @@ function ConsultaSuscriptorPage() {
           <>
             {resultado.requiereActualizarDatos && (
               <div className="portal-alert portal-alert--warning">
-                <strong>Aviso importante:</strong> Tu ficha aún no tiene número de celular o cédula completos registrados. Por favor acércate o escribe a la Junta para actualizar tus datos y proteger tu cuenta.
+                <strong>Actualización de censo recomendada:</strong> Tu ficha aún no tiene número de celular o cédula completos registrados. Por favor acércate o escribe a la Junta para actualizar tus datos.
               </div>
             )}
 
             <section className="portal-card">
-              <div style={{ marginBottom: '1rem' }}>
-                <span style={{ fontSize: '0.82rem', color: '#64748b' }}>
-                  Suscriptor titular
-                </span>
-                <h3 style={{ margin: '0.15rem 0', fontSize: '1.2rem' }}>
-                  {resultado.titular}
-                </h3>
-                <span style={{ fontSize: '0.85rem', color: '#475569' }}>
+              <div className="portal-subscriber-top">
+                <div>
+                  <span style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: 600 }}>
+                    SUSCRIPTOR TITULAR
+                  </span>
+                  <h3 className="portal-subscriber-name">{resultado.titular}</h3>
+                </div>
+                <span className="portal-subscriber-doc">
                   Documento: {resultado.cedula}
                 </span>
               </div>
@@ -136,25 +183,25 @@ function ConsultaSuscriptorPage() {
                 }`}
               >
                 <div>
-                  <strong>
+                  <span className="portal-status-banner__label">
                     {resultado.alDia
                       ? '¡Estás al día con tu servicio de acueducto!'
                       : `Tienes ${resultado.cantidadFacturasPendientes} factura(s) pendiente(s)`}
-                  </strong>
+                  </span>
                   <p className="portal-status-banner__amount">
                     {money(resultado.totalAdeudado)}
                   </p>
                 </div>
-                <div style={{ fontSize: '0.88rem', maxWidth: '260px' }}>
+                <div className="portal-status-banner__note">
                   {resultado.alDia
-                    ? 'Gracias por tu pago oportuno, ayuda al mantenimiento de nuestra red veredal.'
-                    : 'Realiza tu pago a tiempo para evitar recargos o suspensión del servicio.'}
+                    ? 'Gracias por tu pago oportuno; tu aporte sostiene la operación y calidad del agua en nuestra comunidad.'
+                    : 'Realiza tu pago a tiempo para evitar recargos por mora o suspensión del suministro.'}
                 </div>
               </div>
 
               {resultado.facturasPendientes?.length > 0 && (
                 <>
-                  <h4 style={{ margin: '1.25rem 0 0.65rem' }}>
+                  <h4 className="portal-section-heading">
                     Detalle de facturas pendientes
                   </h4>
                   <div className="portal-table-wrap">
@@ -187,7 +234,9 @@ function ConsultaSuscriptorPage() {
                               </span>
                             </td>
                             <td>
-                              <strong>{money(f.saldoPendiente)}</strong>
+                              <strong style={{ color: '#0033A0', fontSize: '1rem' }}>
+                                {money(f.saldoPendiente)}
+                              </strong>
                             </td>
                           </tr>
                         ))}
@@ -196,18 +245,22 @@ function ConsultaSuscriptorPage() {
                   </div>
 
                   <div className="portal-payment-box">
-                    <h4>¿Cómo pagar tu factura?</h4>
-                    <p style={{ margin: 0, fontSize: '0.88rem', color: '#334155' }}>
-                      Puedes pagar en efectivo en los puntos de recaudo de la vereda o transferir a las cuentas oficiales de la Junta Administradora:
+                    <h4>Canales oficiales de recaudo</h4>
+                    <p style={{ margin: 0, fontSize: '0.9rem', color: '#334155' }}>
+                      Puedes cancelar en efectivo en los puntos autorizados de la vereda o realizar transferencia electrónica a las cuentas de la Junta:
                     </p>
                     <div className="portal-payment-grid">
                       <div className="portal-payment-item">
-                        <strong>Nequi / Daviplata Oficial</strong>
-                        <div>Consulta el número autorizado con Tesorería</div>
+                        <strong style={{ color: '#0033A0' }}>Nequi / Daviplata Oficial</strong>
+                        <div style={{ marginTop: '0.25rem', color: '#475569' }}>
+                          Solicita el número autorizado en Tesorería
+                        </div>
                       </div>
                       <div className="portal-payment-item">
-                        <strong>Cuenta Bancaria Junta</strong>
-                        <div>Acueducto Vereda El Tablazo</div>
+                        <strong style={{ color: '#0033A0' }}>Cuenta Bancaria Junta</strong>
+                        <div style={{ marginTop: '0.25rem', color: '#475569' }}>
+                          Acueducto Vereda El Tablazo
+                        </div>
                       </div>
                     </div>
                     <a
@@ -225,14 +278,16 @@ function ConsultaSuscriptorPage() {
 
             {resultado.ultimosPagos?.length > 0 && (
               <section className="portal-card">
-                <h4 style={{ margin: '0 0 0.75rem' }}>Últimos pagos registrados</h4>
+                <h4 className="portal-section-heading" style={{ marginTop: 0 }}>
+                  Historial de últimos pagos aplicados
+                </h4>
                 <div className="portal-table-wrap">
                   <table className="portal-table">
                     <thead>
                       <tr>
                         <th>Fecha pago</th>
                         <th>Periodo factura</th>
-                        <th>Medio</th>
+                        <th>Medio de pago</th>
                         <th>Valor pagado</th>
                       </tr>
                     </thead>
@@ -244,7 +299,9 @@ function ConsultaSuscriptorPage() {
                             {String(p.mesFactura).padStart(2, '0')}/{p.anioFactura}
                           </td>
                           <td>{p.metodoPago?.replaceAll('_', ' ')}</td>
-                          <td>{money(p.valorPagado)}</td>
+                          <td>
+                            <strong>{money(p.valorPagado)}</strong>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -254,7 +311,68 @@ function ConsultaSuscriptorPage() {
             )}
           </>
         )}
-      </div>
+
+        {/* Sección Informativa Institucional con las imágenes del repositorio */}
+        <section className="portal-gallery">
+          <div className="portal-gallery__header">
+            <h3 className="portal-gallery__title">Compromiso con nuestra comunidad</h3>
+            <span style={{ fontSize: '0.88rem', color: '#475569' }}>
+              Transparencia, conservación hídrica y servicio continuo
+            </span>
+          </div>
+
+          <div className="portal-gallery__grid">
+            <article className="portal-info-card">
+              <img
+                src={img1}
+                alt="Protección de fuentes hídricas Vereda El Tablazo"
+                className="portal-info-card__img"
+              />
+              <div className="portal-info-card__body">
+                <span className="portal-info-card__tag">Cuidado del Agua</span>
+                <h4 className="portal-info-card__title">Protección de nacimientos</h4>
+                <p className="portal-info-card__text">
+                  Cada recaudo se invierte directamente en la conservación de nuestras microcuencas y el mantenimiento preventivo de bocatomas.
+                </p>
+              </div>
+            </article>
+
+            <article className="portal-info-card">
+              <img
+                src={img2}
+                alt="Infraestructura y red de distribución del acueducto"
+                className="portal-info-card__img"
+              />
+              <div className="portal-info-card__body">
+                <span className="portal-info-card__tag">Infraestructura</span>
+                <h4 className="portal-info-card__title">Red de distribución veredal</h4>
+                <p className="portal-info-card__text">
+                  Trabajamos permanentemente en la mejora de redes, válvulas y tanques de almacenamiento para garantizar continuidad en cada sector.
+                </p>
+              </div>
+            </article>
+
+            <article className="portal-info-card">
+              <img
+                src={img3}
+                alt="Atención al suscriptor y recaudo oportuno"
+                className="portal-info-card__img"
+              />
+              <div className="portal-info-card__body">
+                <span className="portal-info-card__tag">Recaudo Oportuno</span>
+                <h4 className="portal-info-card__title">Control claro para todos</h4>
+                <p className="portal-info-card__text">
+                  Consulta tus facturas desde cualquier celular y conserva tus soportes digitales emitidos por la Junta Administradora.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer className="portal-inst__footer">
+        <strong>Acueducto Vereda El Tablazo</strong> · Junta Administradora Comunitaria · Todos los derechos reservados
+      </footer>
     </div>
   )
 }

@@ -1,0 +1,252 @@
+.recibo-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.recibo-dialog {
+  background: #ffffff;
+  border-radius: 16px;
+  max-width: 560px;
+  width: 100%;
+  box-shadow: 0 24px 48px rgba(0, 51, 160, 0.25);
+  overflow: hidden;
+  border: 1px solid #dce6f1;
+}
+
+.recibo-sheet {
+  background: #ffffff;
+  color: #0f172a;
+  font-family: 'Roboto', system-ui, sans-serif;
+}
+
+.recibo-sheet__header {
+  background: linear-gradient(135deg, #0033A0 0%, #00226B 100%);
+  color: #ffffff;
+  padding: 1.35rem 1.5rem;
+  border-bottom: 4px solid #00AEC7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.recibo-sheet__badge {
+  display: inline-block;
+  background: #E3E829;
+  color: #00226B;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 800;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  margin-bottom: 0.35rem;
+}
+
+.recibo-sheet__title {
+  margin: 0;
+  font-family: 'Barlow', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff !important;
+}
+
+.recibo-sheet__num {
+  text-align: right;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.5rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid rgba(78, 195, 224, 0.45);
+}
+
+.recibo-sheet__num span {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #bae6fd;
+}
+
+.recibo-sheet__num strong {
+  font-family: 'Barlow', sans-serif;
+  font-size: 1.15rem;
+  color: #FFE946;
+}
+
+.recibo-sheet__body {
+  padding: 1.4rem 1.5rem;
+}
+
+.recibo-sheet__amount-box {
+  background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+  border: 1.5px solid #4EC3E0;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.recibo-sheet__amount-box span {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0033A0;
+  text-transform: uppercase;
+}
+
+.recibo-sheet__amount-box strong {
+  font-family: 'Barlow', sans-serif;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #0033A0;
+}
+
+.recibo-sheet__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem 1.1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.recibo-sheet__field dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+
+.recibo-sheet__field dd {
+  margin: 0;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.recibo-sheet__qr-section {
+  border-top: 1.5px dashed #cbd5e1;
+  padding-top: 1.15rem;
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+}
+
+.recibo-sheet__qr-box {
+  background: #ffffff;
+  padding: 0.55rem;
+  border: 2px solid #0033A0;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.recibo-sheet__security-info {
+  font-size: 0.8rem;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.recibo-sheet__hash {
+  display: inline-block;
+  margin-top: 0.4rem;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #0033A0;
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+}
+
+.recibo-actions {
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  padding: 0.95rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.recibo-btn {
+  padding: 0.6rem 1.05rem;
+  border-radius: 8px;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.recibo-btn--close {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.recibo-btn--print {
+  background: #0033A0;
+  color: #ffffff;
+}
+
+.recibo-btn--whatsapp {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body * {
+    visibility: hidden;
+  }
+  #recibo-imprimible,
+  #recibo-imprimible * {
+    visibility: visible;
+  }
+  #recibo-imprimible {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .recibo-sheet__header {
+    background: #0033A0 !important;
+    color: #ffffff !important;
+  }
+  .recibo-sheet__title {
+    color: #ffffff !important;
+  }
+  .recibo-sheet__badge {
+    background: #E3E829 !important;
+    color: #00226B !important;
+  }
+  .recibo-sheet__num strong {
+    color: #FFE946 !important;
+  }
+  .recibo-sheet__amount-box {
+    background: #E0F2FE !important;
+    border-color: #00AEC7 !important;
+  }
+  .recibo-actions {
+    display: none !important;
+  }
+}
