@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { QRCodeSVG } from 'qrcode.react'
+import logoAcueducto from '../../assets/logo-acueducto.png'
 import './ReciboModal.css'
 
 const money = (v) =>
@@ -17,7 +18,7 @@ function ReciboModal({ pago, onClose }) {
   const periodo = `${String(pago.mesFactura || '').padStart(2, '0')}/${pago.anioFactura || ''}`
 
   const mensajeWhatsApp = encodeURIComponent(
-    `Comprobante Oficial de Pago *#${pago.id}* - *Acueducto Vereda El Tablazo*\n\n` +
+    `Comprobante Oficial de Pago *#${pago.id}* - *Acueducto Vereda El Tablazo* (NIT 811.022.038-6)\n\n` +
       `Suscriptor: *${pago.nombrePropietario}*\n` +
       `Predio: *${pago.codigoPredio}*\n` +
       `Periodo: *${periodo}*\n` +
@@ -36,15 +37,30 @@ function ReciboModal({ pago, onClose }) {
       >
         <div className="recibo-sheet">
           <header className="recibo-sheet__header">
-            <div>
-              <span className="recibo-sheet__badge">Comprobante Oficial</span>
-              <h2 className="recibo-sheet__title">Acueducto Vereda El Tablazo</h2>
-              <small style={{ color: '#e0f2fe' }}>
-                Junta Administradora Comunitaria
-              </small>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+              <img
+                src={logoAcueducto}
+                alt="Logo Acueducto Vereda El Tablazo"
+                style={{
+                  width: '54px',
+                  height: '54px',
+                  borderRadius: '10px',
+                  objectFit: 'contain',
+                  backgroundColor: '#ffffff',
+                  padding: '3px',
+                  flexShrink: 0,
+                }}
+              />
+              <div>
+                <span className="recibo-sheet__badge">Comprobante Oficial</span>
+                <h2 className="recibo-sheet__title">Acueducto Vereda El Tablazo</h2>
+                <small style={{ color: '#e0f2fe', display: 'block' }}>
+                  NIT 811.022.038-6 {'\u00b7'} Junta Administradora Comunitaria
+                </small>
+              </div>
             </div>
             <div className="recibo-sheet__num">
-              <span>Recibo N.\u00b0</span>
+              <span>Recibo N.{'\u00b0'}</span>
               <strong>#{String(pago.id).padStart(5, '0')}</strong>
             </div>
           </header>

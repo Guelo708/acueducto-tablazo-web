@@ -11,6 +11,7 @@ import {
   listarFacturas,
 } from '../../services/facturaService.js'
 import { registrarPago, saldoFactura } from '../../services/pagoService.js'
+import { descargarFacturaPdf } from '../../utils/facturaPdfGenerator.js'
 import '../../components/EntityManager/EntityManager.css'
 
 const paymentMethods = [
@@ -133,8 +134,8 @@ function FacturasPage() {
     const texto = encodeURIComponent(
       `Hola *${factura.nombrePropietario}*, cordial saludo de la Junta del *Acueducto Vereda El Tablazo*.\n\n` +
         `Le recordamos que su factura del periodo *${periodo}* (Predio ${factura.codigoPredio}) por valor de *${money(factura.valorFactura)}* se encuentra en estado *${factura.estado}* (vencimiento: ${factura.fechaVencimiento}).\n\n` +
-        `Puede consultar su estado de cuenta detallado y los canales de pago aquí:\n${urlPortal}\n\n` +
-        `¡Muchas gracias por su puntualidad!`
+        `Puede consultar su estado de cuenta y descargar su factura en PDF aqu\u00ed:\n${urlPortal}\n\n` +
+        `\u00a1Muchas gracias por su puntualidad!`
     )
 
     if (celularRaw.length >= 10) {
@@ -142,6 +143,14 @@ function FacturasPage() {
       window.open(`https://wa.me/${telefono}?text=${texto}`, '_blank', 'noopener,noreferrer')
     } else {
       window.open(`https://wa.me/?text=${texto}`, '_blank', 'noopener,noreferrer')
+    }
+  }
+
+  async function handleDescargarPdf(factura) {
+    try {
+      await descargarFacturaPdf(factura)
+    } catch (err) {
+      setError(`No se pudo generar el PDF: ${err.message}`)
     }
   }
 
@@ -234,7 +243,7 @@ function FacturasPage() {
       const facturaInfo = `${paying.codigoPredio} (${paying.mes}/${paying.anio})`
       setPaying(null)
       setFeedback(
-        `Pago de ${money(payForm.valorPagado)} registrado con éxito para la factura ${facturaInfo}.`,
+        `Pago de ${money(payForm.valorPagado)} registrado con \u00e9xito para la factura ${facturaInfo}.`,
       )
       await cargarDatos(false)
     } catch (err) {
@@ -248,9 +257,9 @@ function FacturasPage() {
     <section className="entity-page">
       <header className="entity-hero">
         <div>
-          <span className="entity-hero__eyebrow">Gestión administrativa</span>
+          <span className="entity-hero__eyebrow">{'Gesti\u00f3n administrativa'}</span>
           <h1>Facturas</h1>
-          <p>Genera periodos, consulta estados y administra la facturación.</p>
+          <p>{'Genera periodos, consulta estados y administra la facturaci\u00f3n.'}</p>
         </div>
         <div className="entity-actions">
           <button
@@ -265,7 +274,7 @@ function FacturasPage() {
             onClick={() => setModal('monthly')}
             type="button"
           >
-            Generación mensual
+            {'Generaci\u00f3n mensual'}
           </button>
         </div>
       </header>
@@ -340,6 +349,18 @@ function FacturasPage() {
                       <div className="entity-actions">
                         <button type="button" onClick={() => setDetail(x)}>
                           Ver
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDescargarPdf(x)}
+                          style={{
+                            backgroundColor: '#0033A0',
+                            color: '#ffffff',
+                            borderColor: '#0033A0',
+                          }}
+                          title="Descargar factura en PDF para imprimir o adjuntar en WhatsApp"
+                        >
+                          PDF
                         </button>
                         {x.estado !== 'PAGADA' && (
                           <button
@@ -428,7 +449,7 @@ function FacturasPage() {
                     <option value="">Selecciona</option>
                     {predios.map((p) => (
                       <option key={p.id} value={p.id}>
-                        {p.codigoPredio} · {p.nombrePredio}
+                        {p.codigoPredio} {'\u00b7'} {p.nombrePredio}
                       </option>
                     ))}
                   </select>
@@ -448,7 +469,7 @@ function FacturasPage() {
                 />
               </label>
               <label className="admin-form__field">
-                Año
+                {'A\u00f1o'}
                 <input
                   required
                   type="number"
@@ -466,7 +487,7 @@ function FacturasPage() {
 
       {paying && (
         <AdminModal
-          title={`Registrar pago · ${paying.codigoPredio} (${paying.mes}/${paying.anio})`}
+          title={`Registrar pago \u00b7 ${paying.codigoPredio} (${paying.mes}/${paying.anio})`}
           onClose={() => !busy && setPaying(null)}
           actions={
             <>
@@ -542,7 +563,7 @@ function FacturasPage() {
                 />
               </label>
               <label className="admin-form__field admin-form__field--full">
-                Método de pago
+                {'M\u00e9todo de pago'}
                 <select
                   value={payForm.metodoPago}
                   onChange={(e) =>
@@ -557,9 +578,9 @@ function FacturasPage() {
                 </select>
               </label>
               <label className="admin-form__field admin-form__field--full">
-                Observación
+                {'Observaci\u00f3n'}
                 <textarea
-                  placeholder="Opcional: recibo, referencia de consignación o nota"
+                  placeholder={'Opcional: recibo, referencia de consignaci\u00f3n o nota'}
                   value={payForm.observacion}
                   onChange={(e) =>
                     setPayForm({ ...payForm, observacion: e.target.value })
@@ -573,17 +594,35 @@ function FacturasPage() {
 
       {detail && (
         <AdminModal
-          title={`Factura ${detail.codigoPredio} · ${detail.mes}/${detail.anio}`}
+          title={`Factura ${detail.codigoPredio} \u00b7 ${detail.mes}/${detail.anio}`}
           onClose={() => setDetail(null)}
+          actions={
+            <>
+              <button
+                className="admin-button admin-button--secondary"
+                onClick={() => setDetail(null)}
+                type="button"
+              >
+                Cerrar
+              </button>
+              <button
+                className="admin-button admin-button--primary"
+                onClick={() => handleDescargarPdf(detail)}
+                type="button"
+              >
+                Descargar Factura PDF
+              </button>
+            </>
+          }
         >
           <dl className="detail-grid">
             {Object.entries({
               Propietario: detail.nombrePropietario,
-              Cédula: detail.cedulaPropietario,
+              'C\u00e9dula': detail.cedulaPropietario,
               Predio: detail.codigoPredio,
               'Tipo de predio': detail.tipoPredio,
               Valor: money(detail.valorFactura),
-              'Fecha de generación': detail.fechaGeneracion,
+              'Fecha de generaci\u00f3n': detail.fechaGeneracion,
               Vencimiento: detail.fechaVencimiento,
               Estado: detail.estado,
             }).map(([k, v]) => (
@@ -599,7 +638,7 @@ function FacturasPage() {
       {deleting && (
         <ConfirmDialog
           title="Eliminar factura"
-          message={`Se eliminará la factura ${deleting.codigoPredio} ${deleting.mes}/${deleting.anio}.`}
+          message={`Se eliminar\u00e1 la factura ${deleting.codigoPredio} ${deleting.mes}/${deleting.anio}.`}
           busy={busy}
           error={error}
           onCancel={() => setDeleting(null)}

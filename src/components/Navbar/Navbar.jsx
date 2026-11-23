@@ -1,5 +1,7 @@
+import { cerrarSesionAdmin } from '../../services/authService.js'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useTheme } from '../../context/ThemeContext.jsx'
+import logoAcueducto from '../../assets/logo-acueducto.png'
 import './Navbar.css'
 import './AdminNavigation.css'
 
@@ -14,6 +16,7 @@ function Navbar() {
   }
 
   function handleLogout() {
+    cerrarSesionAdmin()
     navigate('/login')
   }
 
@@ -24,50 +27,50 @@ function Navbar() {
           className="navbar__brand"
           to="/inicio"
         >
-          <span
-            className="navbar__logo"
-            aria-hidden="true"
-          >
-            AP
-          </span>
+          <img
+            src={logoAcueducto}
+            alt="Logo Acueducto Vereda El Tablazo"
+            style={{
+              width: '42px',
+              height: '42px',
+              borderRadius: '10px',
+              objectFit: 'contain',
+              backgroundColor: '#ffffff',
+              padding: '2px',
+              flexShrink: 0,
+            }}
+          />
 
           <span className="navbar__brand-text">
             <strong>Acueducto El Tablazo</strong>
-            <small>Gestión comunitaria</small>
+            <small>NIT 811.022.038-6</small>
           </span>
         </NavLink>
 
         <nav
           className="navbar__navigation"
-          aria-label="Navegación principal"
+          aria-label={'Navegaci\u00f3n principal'}
         >
-          <NavLink
-            className={getLinkClass}
-            to="/inicio"
-          >
+          <NavLink className={getLinkClass} to="/inicio">
             Inicio
           </NavLink>
-
-          {/* NUEVO ENLACE A ESTADÍSTICAS */}
-          <NavLink
-            className={getLinkClass}
-            to="/estadisticas"
-          >
-            Estadísticas
+          <NavLink className={getLinkClass} to="/estadisticas">
+            {'Estad\u00edsticas'}
           </NavLink>
-
-          <NavLink
-            className={getLinkClass}
-            to="/gestion/suscriptores"
-          >
+          <NavLink className={getLinkClass} to="/gestion/suscriptores">
             Suscriptores
           </NavLink>
-
-          <NavLink className={getLinkClass} to="/predios">Predios</NavLink>
-          <NavLink className={getLinkClass} to="/facturas">Facturas</NavLink>
-          <NavLink className={getLinkClass} to="/pagos">Pagos</NavLink>
+          <NavLink className={getLinkClass} to="/predios">
+            Predios
+          </NavLink>
+          <NavLink className={getLinkClass} to="/facturas">
+            Facturas
+          </NavLink>
+          <NavLink className={getLinkClass} to="/pagos">
+            Pagos
+          </NavLink>
           <details className="navbar__catalogs">
-            <summary>Catálogos</summary>
+            <summary>{'Cat\u00e1logos'}</summary>
             <div className="navbar__catalog-menu">
               <NavLink className={getLinkClass} to="/catalogos/sectores">Sectores</NavLink>
               <NavLink className={getLinkClass} to="/catalogos/tipos-predio">Tipos de predio</NavLink>
@@ -87,17 +90,11 @@ function Navbar() {
                 : 'Activar tema claro'
             }
           >
-            <span
-              className="navbar__theme-icon"
-              aria-hidden="true"
-            >
-              {theme === 'light' ? '☾' : '☀'}
+            <span className="navbar__theme-icon" aria-hidden="true">
+              {theme === 'light' ? '\u263e' : '\u2600'}
             </span>
-
             <span>
-              {theme === 'light'
-                ? 'Modo oscuro'
-                : 'Modo claro'}
+              {theme === 'light' ? 'Modo oscuro' : 'Modo claro'}
             </span>
           </button>
 
@@ -106,7 +103,7 @@ function Navbar() {
             type="button"
             onClick={handleLogout}
           >
-            Cerrar sesión
+            {'Cerrar sesi\u00f3n'}
           </button>
         </div>
       </div>

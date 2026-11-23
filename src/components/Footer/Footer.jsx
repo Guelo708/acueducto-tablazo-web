@@ -1,3 +1,4 @@
+import logoAcueducto from '../../assets/logo-acueducto.png'
 import './Footer.css'
 
 function Footer() {
@@ -7,43 +8,40 @@ function Footer() {
     <footer className="footer">
       <div className="footer__container">
         <div className="footer__brand">
-          <span
-            className="footer__logo"
-            aria-hidden="true"
-          >
-            AP
-          </span>
+          <img
+            src={logoAcueducto}
+            alt="Logo Acueducto Vereda El Tablazo"
+            style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '10px',
+              objectFit: 'contain',
+              backgroundColor: '#ffffff',
+              padding: '2px',
+              flexShrink: 0,
+            }}
+          />
 
           <div className="footer__brand-text">
-            <strong>Acueducto El Tablazo</strong>
-
-            <span>
-              Gestión comunitaria del servicio de agua
-            </span>
+            <strong>Acueducto Vereda El Tablazo</strong>
+            <span>NIT 811.022.038-6 {'\u00b7'} Junta Administradora Comunitaria</span>
           </div>
         </div>
 
         <div className="footer__project">
-          <span>Proyecto académico</span>
-
-          <strong>
-            CESDE · {currentYear}
-          </strong>
+          <span>{'Gesti\u00f3n comunitaria'}</span>
+          <strong>Vereda El Tablazo {'\u00b7'} {currentYear}</strong>
         </div>
 
         <div className="footer__status">
-          <span
-            className="footer__status-indicator"
-            aria-hidden="true"
-          />
-
-          <span>Sistema en demostración</span>
+          <span className="footer__status-indicator" aria-hidden="true" />
+          <span>Sistema activo</span>
         </div>
       </div>
 
       <div className="footer__bottom">
         <p>
-          Agua que conecta comunidad, tecnología y bienestar.
+          Agua que conecta comunidad, tecnolog{'\u00ed'}a y bienestar.
         </p>
       </div>
     </footer>

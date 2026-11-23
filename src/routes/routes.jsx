@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import AuthLayout from '../layouts/AuthLayout/AuthLayout.jsx'
 import MainLayout from '../layouts/MainLayout/MainLayout.jsx'
+import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute.jsx'
 import DashboardPage from '../pages/DashboardPage/DashboardPage.jsx'
 import LoginPage from '../pages/LoginPage/LoginPage.jsx'
 import ConsultaSuscriptorPage from '../pages/ConsultaSuscriptorPage/ConsultaSuscriptorPage.jsx'
@@ -24,7 +25,13 @@ function AppRoutes() {
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<LoginPage />} />
       </Route>
-      <Route element={<MainLayout />}>
+      <Route
+        element={
+          <ProtectedRoute>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/inicio" element={<DashboardPage />} />
         <Route path="/estadisticas" element={<EstadisticasPage />} />
         <Route path="/gestion/suscriptores" element={<SuscriptoresPage />} />
