@@ -17,24 +17,16 @@ function AuthLayout() {
         <div className="auth-layout__overlay" />
 
         <div className="auth-layout__branding-content">
-          <img
-            src={logoAcueducto}
-            alt="Logo Acueducto Vereda El Tablazo"
-            style={{
-              width: '74px',
-              height: '74px',
-              borderRadius: '16px',
-              objectFit: 'contain',
-              backgroundColor: '#ffffff',
-              padding: '4px',
-              marginBottom: '1rem',
-              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.25)',
-            }}
-          />
-
-          <span className="auth-layout__badge">
-            Acueducto comunitario {'\u00b7'} NIT 811.022.038-6
-          </span>
+          <div className="auth-layout__identity">
+            <img
+              className="auth-layout__logo"
+              src={logoAcueducto}
+              alt="Logo Acueducto Vereda El Tablazo"
+            />
+            <span className="auth-layout__badge">
+              Acueducto comunitario {'\u00b7'} NIT 811.022.038-6
+            </span>
+          </div>
 
           <h1>Acueducto Vereda El Tablazo</h1>
 

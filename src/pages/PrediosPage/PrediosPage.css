@@ -1,0 +1,11 @@
+.predios-actions {
+  flex-wrap: nowrap;
+  gap: 0.35rem;
+}
+
+.predios-actions button {
+  min-width: 56px;
+  padding: 0.45rem 0.55rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}

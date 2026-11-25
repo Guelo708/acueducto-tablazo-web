@@ -15,6 +15,7 @@ function LoginPage() {
   })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
     if (obtenerSesionAdmin()) {
@@ -96,16 +97,40 @@ function LoginPage() {
         <div className="login-form__group">
           <label htmlFor="contrasena">{'Contrase\u00f1a'}</label>
 
-          <input
-            id="contrasena"
-            name="contrasena"
-            type="password"
-            value={formData.contrasena}
-            onChange={handleChange}
-            placeholder={'Ingresa tu contrase\u00f1a'}
-            autoComplete="current-password"
-            required
-          />
+          <div className="login-form__password">
+            <input
+              id="contrasena"
+              name="contrasena"
+              type={showPassword ? 'text' : 'password'}
+              value={formData.contrasena}
+              onChange={handleChange}
+              placeholder={'Ingresa tu contrase\u00f1a'}
+              autoComplete="current-password"
+              required
+            />
+            <button
+              className="login-form__password-toggle"
+              type="button"
+              onClick={() => setShowPassword((isVisible) => !isVisible)}
+              aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              aria-pressed={showPassword}
+              aria-controls="contrasena"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z" />
+                <circle cx="12" cy="12" r="3" />
+                {showPassword && <path d="m3 3 18 18" />}
+              </svg>
+            </button>
+          </div>
         </div>
 
         <button className="login-form__button" type="submit" disabled={loading}>
@@ -113,29 +138,12 @@ function LoginPage() {
         </button>
       </form>
 
-      <div
-        style={{
-          marginTop: '1.25rem',
-          paddingTop: '1rem',
-          borderTop: '1px solid rgba(255, 255, 255, 0.35)',
-          textAlign: 'center',
-        }}
-      >
-        <p style={{ margin: '0 0 0.45rem', fontSize: '0.88rem', color: '#f0f9ff' }}>
-          {'\u00bfEres usuario o suscriptor del acueducto?'}
+      <div className="login-card__footer">
+        <p>
+          {'¿Eres usuario o suscriptor del acueducto?'}
         </p>
-        <Link
-          to="/consulta"
-          style={{
-            display: 'inline-block',
-            fontWeight: 700,
-            color: '#ffffff',
-            textDecoration: 'underline',
-            textUnderlineOffset: '3px',
-            fontSize: '0.96rem',
-          }}
-        >
-          {'Si eres suscriptor, consulta tus facturas aqu\u00ed \u2192'}
+        <Link to="/consulta" className="login-card__portal-link">
+          {'Si eres suscriptor, consulta tus facturas aquí →'}
         </Link>
       </div>
     </section>

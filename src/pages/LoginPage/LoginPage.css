@@ -1,11 +1,18 @@
+/* =========================================================
+   ESTILOS INSTITUCIONALES - LOGIN ADMINISTRATIVO
+   Acueducto Vereda El Tablazo · NIT 811.022.038-6
+   ========================================================= */
+
 .login-card {
   width: 100%;
   max-width: 440px;
-  padding: 36px;
+  padding: 40px;
   background-color: var(--theme-surface);
   border: 1px solid var(--theme-border);
+  border-top: 5px solid var(--color-primary);
   border-radius: var(--radius-large);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-modal);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .login-card__header {
@@ -13,24 +20,30 @@
 }
 
 .login-card__eyebrow {
+  display: inline-block;
   margin-bottom: 8px;
-  color: var(--color-secondary);
-  font-size: 0.85rem;
-  font-weight: 700;
+  color: var(--color-secondary-dark);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .login-card__header h2 {
   margin-bottom: 8px;
-  color: var(--color-accent);
-  font-size: 2rem;
+  color: var(--color-primary-dark);
+  font-family: var(--font-heading);
+  font-size: 2.1rem;
   font-weight: 800;
-  text-shadow: 0 1px 2px rgb(0 51 160 / 18%);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 
 .login-card__header p {
   color: var(--theme-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
 }
 
 .login-form {
@@ -46,98 +59,154 @@
 }
 
 .login-form__group label {
-  color: var(--theme-text);
-  font-weight: 600;
+  color: var(--theme-text-strong);
+  font-weight: 700;
+  font-size: 0.9rem;
 }
 
 .login-form__group input {
   width: 100%;
   padding: 12px 14px;
   color: var(--theme-text);
-  background-color: var(--theme-surface);
-  border: 1px solid var(--theme-border);
+  background-color: var(--theme-input-background);
+  border: 2px solid var(--theme-border);
   border-radius: var(--radius-small);
   outline: none;
+  font-size: 0.95rem;
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
 
+.login-form__password {
+  position: relative;
+}
+
+.login-form__password input {
+  padding-right: 3rem;
+}
+
+.login-form__password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: var(--theme-text-muted);
+  border-radius: var(--radius-small);
+  transform: translateY(-50%);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.login-form__password-toggle:hover {
+  color: var(--theme-text-strong);
+  background-color: var(--theme-surface-soft);
+}
+
+.login-form__password-toggle:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 1px;
+}
+
+.login-form__password-toggle svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
 .login-form__group input:focus {
-  border-color: var(--color-secondary);
-  box-shadow: 0 0 0 3px rgb(0 174 199 / 18%);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgb(0 51 160 / 16%);
 }
 
 .login-form__button {
   width: 100%;
+  min-height: 48px;
   padding: 13px 20px;
-  color: var(--color-white);
-  font-weight: 700;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
   background-color: var(--color-primary);
-  border: none;
+  border: 2px solid transparent;
   border-radius: var(--radius-small);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgb(0 51 160 / 25%);
   transition:
     background-color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.login-form__button:hover {
-  background-color: var(--color-secondary);
+.login-form__button:hover:not(:disabled) {
+  background-color: var(--color-accent);
+  color: var(--color-primary-dark);
+  box-shadow: 0 6px 18px rgb(0 34 107 / 28%);
+  transform: translateY(-1px);
 }
 
-.login-form__button:active {
+.login-form__button:active:not(:disabled) {
   transform: scale(0.98);
+}
+
+.login-form__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+:root[data-theme="dark"] .login-card {
+  background-color: var(--theme-surface);
+  border-color: var(--theme-border);
+  border-top-color: var(--color-secondary);
+}
+
+:root[data-theme="dark"] .login-card__header h2 {
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .login-card__eyebrow {
+  color: var(--color-aqua-light);
+}
+
+.login-card__footer {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--theme-border);
+  text-align: center;
+}
+
+.login-card__footer p {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--theme-text-muted);
+}
+
+.login-card__portal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.login-card__portal-link:hover {
+  color: var(--color-secondary-dark);
+  transform: translateX(2px);
+  text-decoration: underline;
+}
+
+:root[data-theme="dark"] .login-card__portal-link {
+  color: var(--color-aqua-light);
 }
 
 @media (max-width: 480px) {
   .login-card {
     padding: 28px 20px;
   }
-}
-
-.login-card .login-card__header h2 {
-  color: #e3e829 !important;
-}
-:root[data-theme="light"] .login-card {
-  background-color: #00aec7;
-  border-color: rgb(255 255 255 / 55%);
-  box-shadow: 0 18px 45px rgb(0 51 160 / 22%);
-}
-
-:root[data-theme="light"] .login-card__eyebrow {
-  color: #0033a0;
-}
-
-:root[data-theme="light"] .login-card .login-card__header h2 {
-  color: #e3e829 !important;
-  text-shadow: 0 2px 5px rgb(0 51 160 / 35%);
-}
-
-:root[data-theme="light"] .login-card__header p {
-  color: #00306f;
-}
-
-:root[data-theme="light"] .login-form__group label {
-  color: #00256f;
-}
-
-:root[data-theme="light"] .login-form__group input {
-  color: #152238;
-  background-color: #ffffff;
-  border-color: rgb(0 51 160 / 28%);
-}
-
-:root[data-theme="light"] .login-form__group input:focus {
-  border-color: #0033a0;
-  box-shadow: 0 0 0 4px rgb(227 232 41 / 35%);
-}
-
-:root[data-theme="light"] .login-form__button {
-  color: #ffffff;
-  background-color: #0033a0;
-}
-
-:root[data-theme="light"] .login-form__button:hover {
-  color: #0033a0;
-  background-color: #e3e829;
 }

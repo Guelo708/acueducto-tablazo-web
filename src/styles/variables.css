@@ -1,33 +1,38 @@
 :root {
-  /* Colores institucionales */
-  --color-primary: #0033a0;
-  --color-secondary: #00aec7;
-  --color-accent: #e3e829;
-  --color-accent-medium: #ffe946;
-  --color-aqua-light: #4ec3e0;
-  --color-white: #ffffff;
+  /* =========================================================
+     PALETA INSTITUCIONAL ESTRICTA - ACUEDUCTO VEREDA EL TABLAZO
+     Colores autorizados: #0033A0, #E3E829, #00AEC7, #FFFFFF, #FFE946, #4EC3E0
+     ========================================================= */
+  --color-primary: #0033A0;         /* Azul institucional principal */
+  --color-primary-dark: #00226B;    /* Azul profundo corporativo */
+  --color-secondary: #00AEC7;       /* Cyan institucional */
+  --color-accent: #E3E829;          /* Amarillo / Lima de acento */
+  --color-accent-medium: #FFE946;   /* Amarillo cálido complementario */
+  --color-aqua-light: #4EC3E0;      /* Aqua claro */
+  --color-white: #FFFFFF;
 
-  /* Colores complementarios */
-  --color-background: #f4f8fb;
-  --color-surface: #ffffff;
-  --color-text: #152238;
-  --color-text-muted: #5d6878;
-  --color-border: #d9e5ec;
+  /* Superficies y neutrales corporativos (igual a Portal de Suscriptores) */
+  --color-background: #F4F8FB;
+  --color-surface: #FFFFFF;
+  --color-surface-soft: #EFF6FC;
+  --color-text: #0F172A;
+  --color-text-strong: #00226B;
+  --color-text-muted: #475569;
+  --color-border: #DCE6F1;
+  --color-border-strong: #00AEC7;
 
-  /* Colores para mensajes */
-  --color-success: #16825d;
-  --color-warning: #b87900;
-  --color-danger: #c53d3d;
+  /* Tipografías oficiales */
+  --font-heading: "Barlow", "Trebuchet MS", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Roboto", "Trebuchet MS", -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* Tipografías */
-  --font-heading: "Barlow", "Trebuchet MS", sans-serif;
-  --font-body: "Roboto", "Trebuchet MS", sans-serif;
-
-  /* Bordes redondeados */
-  --radius-small: 6px;
+  /* Radios */
+  --radius-small: 8px;
   --radius-medium: 12px;
-  --radius-large: 18px;
+  --radius-large: 16px;
+  --radius-pill: 9999px;
 
-  /* Sombras */
-  --shadow-card: 0 8px 24px rgb(0 51 160 / 10%);
+  /* Sombras sobrias */
+  --shadow-sm: 0 2px 6px rgba(0, 51, 160, 0.06);
+  --shadow-card: 0 10px 28px rgba(0, 51, 160, 0.08);
+  --shadow-modal: 0 24px 60px rgba(0, 34, 107, 0.28);
 }

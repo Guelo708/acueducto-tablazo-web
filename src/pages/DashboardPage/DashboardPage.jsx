@@ -62,15 +62,15 @@ function DashboardPage() {
 
         <div className="dashboard__hero-content">
           <span className="dashboard__eyebrow">
-            Panel administrativo
+            Panel administrativo · NIT 811.022.038-6
           </span>
 
-          <h1>Bienvenido a Aguas Paraíso</h1>
+          <h1>Acueducto Vereda El Tablazo</h1>
 
           <p>
-            Gestiona la información de los predios, facturas, recaudos y
-            estadísticas del acueducto comunitario desde un espacio
-            centralizado, claro y seguro.
+            Plataforma institucional para la gestión integral de suscriptores,
+            facturación mensual, recaudo digital y analítica operativa del
+            acueducto comunitario.
           </p>
 
           <div className="dashboard__hero-actions">
@@ -130,7 +130,7 @@ function DashboardPage() {
               <p>{errorUsuarios}</p>
             ) : (
               <p>
-                Usuarios registrados actualmente en Aguas Paraíso.
+                Usuarios registrados en el Acueducto Vereda El Tablazo.
               </p>
             )}
           </div>
@@ -201,7 +201,7 @@ function DashboardPage() {
         <figure className="dashboard__info-media">
           <img
             src={imagenOperacion}
-            alt="Infraestructura y gestión comunitaria de Aguas Paraíso"
+            alt="Infraestructura y gestión comunitaria de Acueducto Vereda El Tablazo"
           />
           <div className="dashboard__info-media-overlay" />
           <figcaption className="dashboard__info-caption">

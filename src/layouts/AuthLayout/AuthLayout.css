@@ -50,11 +50,28 @@
   backdrop-filter: blur(10px);
 }
 
+.auth-layout__identity {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 22px;
+}
+
+.auth-layout__logo {
+  width: 74px;
+  height: 74px;
+  padding: 4px;
+  object-fit: contain;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 25%);
+}
+
 .auth-layout__badge {
   display: inline-flex;
   align-items: center;
   padding: 8px 14px;
-  margin-bottom: 22px;
   color: #0033a0;
   font-size: 0.78rem;
   font-weight: 800;

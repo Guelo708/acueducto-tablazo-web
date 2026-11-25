@@ -11,6 +11,7 @@ import {
   registrarPredio,
 } from '../../services/predioService.js'
 import '../../components/EntityManager/EntityManager.css'
+import './PrediosPage.css'
 
 const empty = {
   codigoPredio: '',
@@ -211,7 +212,7 @@ function PrediosPage() {
                     <td>{x.sector?.nombre}</td>
                     <td>{x.tipoPredio?.nombre}</td>
                     <td>
-                      <div className="entity-actions">
+                      <div className="entity-actions predios-actions">
                         <button type="button" onClick={() => setDetail(x)}>
                           Ver
                         </button>

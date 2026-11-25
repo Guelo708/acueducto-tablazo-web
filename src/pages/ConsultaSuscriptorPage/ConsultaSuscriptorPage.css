@@ -623,3 +623,160 @@
 .portal-inst__footer strong {
   color: var(--inst-white);
 }
+
+@media (max-width: 600px) {
+  .portal-inst__navbar {
+    padding: 0.75rem 0.85rem;
+  }
+
+  .portal-inst__nav-inner {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .portal-inst__brand {
+    flex: 1 1 100%;
+    min-width: 0;
+    gap: 0.65rem;
+  }
+
+  .portal-inst__brand > div {
+    min-width: 0;
+  }
+
+  .portal-inst__eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+  }
+
+  .portal-inst__brand-title {
+    font-size: clamp(0.95rem, 4vw, 1.15rem);
+    overflow-wrap: anywhere;
+  }
+
+  .portal-inst__admin-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .portal-inst__hero {
+    padding: 2.25rem 1rem 4rem;
+  }
+
+  .portal-inst__hero-content {
+    gap: 1.25rem;
+  }
+
+  .portal-inst__hero-title {
+    font-size: clamp(1.65rem, 7vw, 2.1rem);
+    overflow-wrap: anywhere;
+  }
+
+  .portal-inst__hero-desc {
+    font-size: 0.95rem;
+  }
+
+  .portal-inst__hero-highlights {
+    padding: 0.95rem;
+  }
+
+  .portal-inst__main {
+    width: 100%;
+    margin: -2.5rem auto 2rem;
+    padding: 0 0.75rem;
+  }
+
+  .portal-card {
+    min-width: 0;
+    padding: 1.1rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .portal-card__title,
+  .portal-section-heading,
+  .portal-gallery__title {
+    font-size: 1.15rem;
+    overflow-wrap: anywhere;
+  }
+
+  .portal-search-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portal-field,
+  .portal-field input {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .portal-btn-primary {
+    width: 100%;
+  }
+
+  .portal-subscriber-top {
+    align-items: flex-start;
+  }
+
+  .portal-subscriber-name {
+    font-size: 1.2rem;
+    overflow-wrap: anywhere;
+  }
+
+  .portal-status-banner {
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .portal-status-banner__amount {
+    font-size: clamp(1.6rem, 8vw, 2rem);
+    overflow-wrap: anywhere;
+  }
+
+  .portal-status-banner__note {
+    max-width: none;
+  }
+
+  .portal-table-wrap {
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .portal-table {
+    min-width: 600px;
+  }
+
+  .portal-table code {
+    overflow-wrap: anywhere;
+    word-break: break-all;
+  }
+
+  .portal-payment-box {
+    padding: 1rem;
+  }
+
+  .portal-whatsapp-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .portal-gallery {
+    margin-top: 1.25rem;
+  }
+
+  .portal-gallery__header {
+    align-items: flex-start;
+  }
+
+  .portal-info-card__img {
+    height: 155px;
+  }
+
+  .portal-inst__footer {
+    padding: 1rem 0.85rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+}

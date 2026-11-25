@@ -1,3 +1,61 @@
+/* =========================================================
+   FUENTES INSTITUCIONALES LOCALES (@font-face)
+   Barlow: Encabezados, títulos, números y botones
+   Roboto: Texto base, formularios, tablas y datos
+   ========================================================= */
+
+@font-face {
+  font-family: 'Barlow';
+  src: url('../assets/fonts/Barlow-600.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow';
+  src: url('../assets/fonts/Barlow-700.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow';
+  src: url('../assets/fonts/Barlow-800.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../assets/fonts/Roboto-400.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../assets/fonts/Roboto-500.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../assets/fonts/Roboto-700.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================================================
+   RESETEO Y ESTILOS BASE
+   ========================================================= */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,6 +67,9 @@ html {
   font-family: var(--font-body);
   background-color: var(--theme-background);
   color: var(--theme-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -17,18 +78,30 @@ body {
   background-color: var(--theme-background);
   color: var(--theme-text);
   font-family: var(--font-body);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 button,
 input,
 select,
 textarea {
-  font: inherit;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 button {
   cursor: pointer;
+  border: none;
+  background: none;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
 }
 
 a {
@@ -48,9 +121,65 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  color: var(--theme-text);
+  color: var(--color-primary-dark);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 #root {
   min-height: 100vh;
+}
+
+/* Scrollbar estilizada institucional */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #EFF6FC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* =========================================================
+   UTILIDADES INSTITUCIONALES (SOLO COLORES AUTORIZADOS)
+   #0033A0, #E3E829, #00AEC7, #FFFFFF, #FFE946, #4EC3E0
+   ========================================================= */
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.badge-inst {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+}
+
+.badge-inst--sent {
+  background-color: #E0F7FA;
+  color: #0033A0;
+  border: 1px solid #00AEC7;
+}
+
+.badge-inst--pending {
+  background-color: #FEFCE8;
+  color: #00226B;
+  border: 1px solid #FFE946;
 }

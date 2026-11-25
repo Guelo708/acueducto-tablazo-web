@@ -77,6 +77,15 @@ function Navbar() {
               <NavLink className={getLinkClass} to="/catalogos/tarifas">Tarifas</NavLink>
             </div>
           </details>
+          <a
+            className="navbar__link"
+            href="/consulta"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Abrir la consulta pública de facturas de suscriptores en una nueva pestaña"
+          >
+            Portal público ↗
+          </a>
         </nav>
 
         <div className="navbar__actions">

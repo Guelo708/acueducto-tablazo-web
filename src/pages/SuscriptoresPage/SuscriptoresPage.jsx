@@ -9,6 +9,7 @@ import {
 } from '../../services/usuarioService.js'
 
 import SuscriptorForm from '../../components/SuscriptorForm/SuscriptorForm.jsx'
+import { exportarContactosWhatsAppVcf } from '../../utils/whatsappCobroUtils.js'
 import './SuscriptoresPage.css'
 
 function SuscriptoresPage() {
@@ -103,6 +104,21 @@ function SuscriptoresPage() {
       )
     })
   }, [busqueda, usuarios])
+
+  function handleExportarContactos() {
+    const total = exportarContactosWhatsAppVcf(usuarios)
+    if (total === 0) {
+      setFeedback({
+        type: 'error',
+        message: 'No hay suscriptores con número celular válido para exportar.',
+      })
+      return
+    }
+    setFeedback({
+      type: 'success',
+      message: `Se exportaron ${total} contactos (.vcf) listos para tu Lista de Difusión en WhatsApp.`,
+    })
+  }
 
   function handleNuevo() {
     setFeedback({
@@ -285,46 +301,58 @@ function SuscriptoresPage() {
       <header className="subscribers-page__header">
         <div>
           <span className="subscribers-page__eyebrow">
-            Gestión administrativa
+            Gestión administrativa · Acueducto Comunitario
           </span>
 
           <h1>Suscriptores</h1>
 
           <p>
             Consulta y administra las personas registradas en el
-            acueducto Aguas Paraíso.
+            Acueducto Vereda El Tablazo.
           </p>
         </div>
 
-        <button
-          className="subscribers-page__new-button"
-          type="button"
-          onClick={handleNuevo}
-        >
-          Nuevo suscriptor
-        </button>
+        <div className="subscribers-header-actions">
+          <button
+            className="subscribers-btn-secondary"
+            type="button"
+            onClick={handleExportarContactos}
+            title="Exportar contactos en archivo .vcf para listas de difusión en WhatsApp"
+          >
+            Exportar contactos (.vcf)
+          </button>
+          <button
+            className="subscribers-page__new-button"
+            type="button"
+            onClick={handleNuevo}
+          >
+            Nuevo suscriptor
+          </button>
+        </div>
       </header>
-{feedback.message && (
-  <div
-    className={`subscribers-feedback subscribers-feedback--${feedback.type}`}
-    role={feedback.type === 'error' ? 'alert' : 'status'}
-  >
-    <span>{feedback.message}</span>
 
-    <button
-      type="button"
-      onClick={() =>
-        setFeedback({
-          type: '',
-          message: '',
-        })
-      }
-      aria-label="Cerrar mensaje"
-    >
-      ×
-    </button>
-  </div>
-)}
+      {feedback.message && (
+        <div
+          className={`subscribers-feedback subscribers-feedback--${feedback.type}`}
+          role={feedback.type === 'error' ? 'alert' : 'status'}
+        >
+          <span>{feedback.message}</span>
+
+          <button
+            type="button"
+            onClick={() =>
+              setFeedback({
+                type: '',
+                message: '',
+              })
+            }
+            aria-label="Cerrar mensaje"
+          >
+            ×
+          </button>
+        </div>
+      )}
+
       <section
         className="subscribers-summary"
         aria-label="Resumen de suscriptores"

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { QRCodeSVG } from 'qrcode.react'
 import logoAcueducto from '../../assets/logo-acueducto.png'
+import { normalizarTelefonoColombia } from '../../utils/whatsappCobroUtils.js'
 import './ReciboModal.css'
 
 const money = (v) =>
@@ -25,8 +26,13 @@ function ReciboModal({ pago, onClose }) {
       `Valor pagado: *${money(pago.valorPagado)}*\n` +
       `Fecha: *${pago.fechaPago}*\n` +
       `Sello digital: *${firma}*\n\n` +
-      `Verifica la autenticidad de este recibo aqu\u00ed:\n${urlVerificacion}`
+      `Verifica la autenticidad de este recibo aquí:\n${urlVerificacion}`
   )
+
+  const celInfo = pago.celular || pago.telefono ? normalizarTelefonoColombia(pago.celular || pago.telefono) : null
+  const urlWhatsApp = celInfo?.valido && celInfo.waNumber
+    ? `https://wa.me/${celInfo.waNumber}?text=${mensajeWhatsApp}`
+    : `https://wa.me/?text=${mensajeWhatsApp}`
 
   return (
     <div className="recibo-overlay" onClick={onClose}>
@@ -146,7 +152,7 @@ function ReciboModal({ pago, onClose }) {
             {'Probar verificaci\u00f3n'}
           </Link>
           <a
-            href={`https://wa.me/?text=${mensajeWhatsApp}`}
+            href={urlWhatsApp}
             target="_blank"
             rel="noreferrer"
             className="recibo-btn recibo-btn--whatsapp"
